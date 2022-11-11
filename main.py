@@ -1,5 +1,6 @@
 import random
 
+# Globals
 ok = 0
 fail = 0
 warn = 0
@@ -7,55 +8,71 @@ warn = 0
 
 class ScoutSystemCheck:
 
-    def __init__(self):
-        self.system_check = 0
-        self.system_status = ""
+  def __init__(self):
+    self.system_check = 0
+    self.system_status = ""
 
-    def antenna_check(self):
-        print(f"Checking antennas (L/R):  {self.systems_check(self.system_information())}")
+  # These methods each get passed a random status as defined in system_information()
+  def antenna_check(self):
+    print(
+      f"Checking antennas (L/R):  {self.systems_check(self.system_information())}"
+    )
 
-    def camera_check(self):
-        print(f"Checking camera:          {self.systems_check(self.system_information())}")
+  def camera_check(self):
+    print(
+      f"Checking camera:          {self.systems_check(self.system_information())}"
+    )
 
-    def arm_check(self):
-        print(f"Checking arms:            {self.systems_check(self.system_information())}")
+  def arm_check(self):
+    print(
+      f"Checking arms:            {self.systems_check(self.system_information())}"
+    )
 
-    def torso_check(self):
-        print(f"Checking Torso:           {self.systems_check(self.system_information())}")
+  def torso_check(self):
+    print(
+      f"Checking torso:           {self.systems_check(self.system_information())}"
+    )
 
-    def leg_check(self):
-        print(f"Checking legs:            {self.systems_check(self.system_information())}")
+  def leg_check(self):
+    print(
+      f"Checking legs:            {self.systems_check(self.system_information())}"
+    )
 
-    def ai_link(self):
-        print(f"Checking connection:      {self.systems_check(self.system_information())}")
+  def ai_link(self):
+    print(
+      f"Checking connection:      {self.systems_check(self.system_information())}"
+    )
 
-    def systems_check(self, system_check):
-        if system_check == 0:
-            self.system_status = "[FAIL] SCOUT cannot operate."
-            global fail
-            fail += 1
-        elif system_check == 1:
-            self.system_status = "[OK]"
-            global ok
-            ok += 1
-        if system_check == 2:
-            self.system_status = "[WARN] SCOUT service degraded. Repair or replace soon."
-            global warn
-            warn += 1
+  # Print status and update globals based on parameter passed in
+  def systems_check(self, system_check):
+    if system_check == 0:
+      self.system_status = "[FAIL] SCOUT cannot operate."
+      global fail
+      fail += 1
+    elif system_check == 1:
+      self.system_status = "[OK]"
+      global ok
+      ok += 1
+    if system_check == 2:
+      self.system_status = "[WARN] SCOUT service degraded. Repair or replace soon."
+      global warn
+      warn += 1
 
-        return self.system_status
+    return self.system_status
 
-    def system_information(self):
-        self.system_check = random.randint(0, 100)
+  # Return random status; Chances: [OK] 65% | [WARN] 25% | [FAIL] 10%
+  def system_information(self):
+    self.system_check = random.randint(0, 100)
 
-        if self.system_check <= 65:
-            return 1
-        elif self.system_check <= 90 :
-            return 2
-        else:
-            return 0
+    if self.system_check <= 65:
+      return 1
+    elif self.system_check <= 90:
+      return 2
+    else:
+      return 0
 
 
+# Execution
 scout = ScoutSystemCheck()
 print("\n\nStarting up ...")
 print("FIRMWARE LOADED [OK]")
@@ -73,11 +90,6 @@ scout.ai_link()
 print(f"\nChecks completed with {ok} [OK]  {warn} [WARN]  {fail} [FAIL]")
 
 if fail == 0:
-    print("SCOUT IS OPERATIONAL")
+  print("SCOUT IS OPERATIONAL")
 else:
-    print("SCOUT CANNOT OPERATE. SHUTTING DOWN...")
-
-
-
-
-
+  print("SCOUT CANNOT OPERATE. SHUTTING DOWN...")
